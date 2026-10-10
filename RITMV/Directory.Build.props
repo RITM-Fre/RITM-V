@@ -1,0 +1,36 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <Version>1.0.0</Version>
+        <Product>RITM V</Product>
+        <Company>RITM</Company>
+        <AssemblyTitle>RITM V</AssemblyTitle>
+        <Description>RITM V - a modern neon-themed proxy client powered by Xray-core and sing-box.</Description>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <Nullable>annotations</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Authors>RITM-Fre</Authors>
+        <PackageLicenseExpression>GPL-3.0</PackageLicenseExpression>
+        <Copyright>Copyright © 2026 RITM (RITM.FreeLancer@atomicmail.io). Based on v2rayN © 2017-$([System.DateTime]::UtcNow.Year) 2dust.</Copyright>
+        <InvariantGlobalization>false</InvariantGlobalization>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <DebugType>embedded</DebugType>
+        <EventSourceSupport>false</EventSourceSupport>
+        <StackTraceSupport>false</StackTraceSupport>
+        <MetricsSupport>false</MetricsSupport>
+        <MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+        <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+        <EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+
+        <UseSystemResourceKeys>true</UseSystemResourceKeys>
+        <PublishSingleFile>true</PublishSingleFile>
+        <PublishReadyToRun>false</PublishReadyToRun>
+    </PropertyGroup>
+</Project>
