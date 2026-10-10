@@ -1,0 +1,59 @@
+name: Build RITM V (Windows .exe)
+
+# Builds a self-contained, single-file Windows x64 executable on every push and on
+# every published GitHub Release. Download the result from the Actions "Artifacts"
+# (or as a Release asset when you publish a release/tag).
+
+on:
+  push:
+    branches: [ main, master ]
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+permissions:
+  contents: write   # required to attach the .exe to a Release
+
+jobs:
+  build-windows:
+    name: Build Windows x64 (.exe)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Show dotnet version
+        run: dotnet --version
+
+      - name: Restore
+        run: dotnet restore RITMV/RITMV/RITMV.csproj
+
+      - name: Publish (self-contained, single-file)
+        run: >
+          dotnet publish RITMV/RITMV/RITMV.csproj
+          -c Release
+          -r win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -o publish
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RITMV-win64
+          path: publish/RITMV.exe
+
+      - name: Attach to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: publish/RITMV.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
