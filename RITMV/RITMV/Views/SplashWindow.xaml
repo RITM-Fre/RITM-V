@@ -1,0 +1,348 @@
+<Window
+    x:Class="RITMV.Views.SplashWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="RITM V"
+    Width="580"
+    Height="360"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ResizeMode="NoResize"
+    ShowInTaskbar="False"
+    Style="{StaticResource WindowGlobal}"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None">
+
+    <Window.RenderTransform>
+        <ScaleTransform x:Name="RootScale" ScaleX="0.94" ScaleY="0.94" />
+    </Window.RenderTransform>
+    <Window.RenderTransformOrigin>
+        <Point X="0.5" Y="0.5" />
+    </Window.RenderTransformOrigin>
+
+    <Window.Triggers>
+        <!--  RITM V : splash entrance animation  -->
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        Storyboard.TargetName="RootScale"
+                        Storyboard.TargetProperty="ScaleX"
+                        To="1"
+                        Duration="0:0:0.45">
+                        <DoubleAnimation.EasingFunction>
+                            <BackEase Amplitude="0.35" EasingMode="EaseOut" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation
+                        Storyboard.TargetName="RootScale"
+                        Storyboard.TargetProperty="ScaleY"
+                        To="1"
+                        Duration="0:0:0.45">
+                        <DoubleAnimation.EasingFunction>
+                            <BackEase Amplitude="0.35" EasingMode="EaseOut" />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Border
+        x:Name="Shell"
+        Margin="18"
+        CornerRadius="22">
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="42"
+                Direction="270"
+                Opacity="0.75"
+                ShadowDepth="0"
+                Color="#7C3AED" />
+        </Border.Effect>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="#150E28" />
+                <GradientStop Offset="0.55" Color="#0D0819" />
+                <GradientStop Offset="1" Color="#150E28" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="#8B5CF6" />
+                <GradientStop Offset="0.5" Color="#4C1D95" />
+                <GradientStop Offset="1" Color="#22D3EE" />
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Border.BorderThickness>1.4</Border.BorderThickness>
+
+        <Grid>
+            <!--  ambient neon blobs  -->
+            <Canvas ClipToBounds="True">
+                <Ellipse
+                    x:Name="BlobA"
+                    Width="220"
+                    Height="220"
+                    Canvas.Left="-70"
+                    Canvas.Top="-90"
+                    Opacity="0.30">
+                    <Ellipse.Fill>
+                        <RadialGradientBrush>
+                            <GradientStop Offset="0" Color="#8B5CF6" />
+                            <GradientStop Offset="1" Color="#008B5CF6" />
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0.14"
+                                        To="0.42"
+                                        Duration="0:0:2.4" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+                <Ellipse
+                    Width="240"
+                    Height="240"
+                    Canvas.Left="400"
+                    Canvas.Top="200"
+                    Opacity="0.25">
+                    <Ellipse.Fill>
+                        <RadialGradientBrush>
+                            <GradientStop Offset="0" Color="#22D3EE" />
+                            <GradientStop Offset="1" Color="#0022D3EE" />
+                        </RadialGradientBrush>
+                    </Ellipse.Fill>
+                    <Ellipse.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                    <DoubleAnimation
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0.12"
+                                        To="0.38"
+                                        Duration="0:0:3.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Ellipse.Triggers>
+                </Ellipse>
+            </Canvas>
+
+            <Grid Margin="44,30,44,22">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  logo: rotating dashed ring + gradient tile  -->
+                <Grid
+                    Grid.Row="0"
+                    Width="132"
+                    Height="132"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Ellipse
+                        Width="132"
+                        Height="132"
+                        RenderTransformOrigin="0.5,0.5"
+                        StrokeThickness="2.4"
+                        StrokeDashArray="5 6"
+                        StrokeDashCap="Round">
+                        <Ellipse.Stroke>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#8B5CF6" />
+                                <GradientStop Offset="1" Color="#22D3EE" />
+                            </LinearGradientBrush>
+                        </Ellipse.Stroke>
+                        <Ellipse.RenderTransform>
+                            <RotateTransform x:Name="Ring" Angle="0" />
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Ring"
+                                            Storyboard.TargetProperty="Angle"
+                                            From="0"
+                                            To="360"
+                                            Duration="0:0:5" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Ellipse.Triggers>
+                    </Ellipse>
+
+                    <Border
+                        Width="94"
+                        Height="94"
+                        CornerRadius="24"
+                        RenderTransformOrigin="0.5,0.5">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#7C3AED" />
+                                <GradientStop Offset="1" Color="#22D3EE" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.RenderTransform>
+                            <ScaleTransform x:Name="TileScale" ScaleX="1" ScaleY="1" />
+                        </Border.RenderTransform>
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="26"
+                                Direction="270"
+                                Opacity="0.85"
+                                ShadowDepth="0"
+                                Color="#8B5CF6" />
+                        </Border.Effect>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="52"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="R" />
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TileScale"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            From="1"
+                                            To="1.07"
+                                            Duration="0:0:1.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="TileScale"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            From="1"
+                                            To="1.07"
+                                            Duration="0:0:1.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Border.Triggers>
+                    </Border>
+                </Grid>
+
+                <!--  word-mark  -->
+                <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="34"
+                        FontWeight="Bold"
+                        Text="RITM V">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="#EDE9FE" />
+                                <GradientStop Offset="0.5" Color="#A78BFA" />
+                                <GradientStop Offset="1" Color="#22D3EE" />
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock
+                        x:Name="txtSub"
+                        Margin="0,4,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="11.5"
+                        Foreground="#8B7DB8"
+                        Text="Advanced proxy client · Xray / sing-box" />
+                </StackPanel>
+
+                <!--  indeterminate neon progress  -->
+                <Grid
+                    Grid.Row="2"
+                    Width="420"
+                    Margin="0,22,0,0"
+                    HorizontalAlignment="Center">
+                    <Border Height="4" CornerRadius="2" Background="#241A44" />
+                    <Border
+                        Width="150"
+                        Height="4"
+                        HorizontalAlignment="Left"
+                        CornerRadius="2">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="#008B5CF6" />
+                                <GradientStop Offset="0.5" Color="#8B5CF6" />
+                                <GradientStop Offset="1" Color="#22D3EE" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.RenderTransform>
+                            <TranslateTransform x:Name="Runner" X="-150" />
+                        </Border.RenderTransform>
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="Runner"
+                                            Storyboard.TargetProperty="X"
+                                            From="-150"
+                                            To="420"
+                                            Duration="0:0:1.7">
+                                            <DoubleAnimation.EasingFunction>
+                                                <QuadraticEase EasingMode="EaseInOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Border.Triggers>
+                    </Border>
+                </Grid>
+
+                <!--  live status  -->
+                <TextBlock
+                    x:Name="txtStatus"
+                    Grid.Row="3"
+                    Margin="0,14,0,0"
+                    HorizontalAlignment="Center"
+                    FontSize="11.5"
+                    Foreground="#A79AD6"
+                    Text="Starting…" />
+
+                <!--  footer  -->
+                <StackPanel
+                    Grid.Row="4"
+                    Margin="0,26,0,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        FontSize="10.5"
+                        FontWeight="SemiBold"
+                        Foreground="#8B5CF6"
+                        Text="Powered By RITM" />
+                    <TextBlock
+                        Margin="8,0,0,0"
+                        FontSize="10.5"
+                        Foreground="#6B5E8C"
+                        Text="·" />
+                    <TextBlock
+                        Margin="8,0,0,0"
+                        FontSize="10.5"
+                        Foreground="#6B5E8C"
+                        Text="RITM.FreeLancer@atomicmail.io" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

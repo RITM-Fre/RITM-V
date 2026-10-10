@@ -1,0 +1,469 @@
+﻿<Application
+    x:Class="RITMV.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:RITMV.Converters"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <ResourceDictionary xmlns:system="clr-namespace:System;assembly=mscorlib">
+            <ResourceDictionary.MergedDictionaries>
+                <!--  RITM V : neon-violet Material palette  -->
+                <materialDesign:BundledTheme
+                    BaseTheme="Dark"
+                    PrimaryColor="DeepPurple"
+                    SecondaryColor="Cyan" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--  =====================================================================
+                  RITM V palette.
+                  These are dark defaults; Common/RitmTheme.cs rewrites every key at
+                  runtime so the whole shell follows the selected light/dark theme.
+                  =====================================================================  -->
+            <SolidColorBrush x:Key="RitmWindowBrush" Color="#0B0714" />
+            <SolidColorBrush x:Key="RitmSurfaceBrush" Color="#150F26" />
+            <SolidColorBrush x:Key="RitmSurfaceAltBrush" Color="#1D1533" />
+            <SolidColorBrush x:Key="RitmBorderBrush" Color="#33265A" />
+            <SolidColorBrush x:Key="RitmTextBrush" Color="#EFEAFE" />
+            <SolidColorBrush x:Key="RitmTextDimBrush" Color="#A79AD6" />
+            <SolidColorBrush x:Key="RitmAccentBrush" Color="#8B5CF6" />
+            <SolidColorBrush x:Key="RitmAccent2Brush" Color="#22D3EE" />
+            <SolidColorBrush x:Key="RitmAccentSoftBrush" Color="#261A47" />
+            <SolidColorBrush x:Key="RitmSelectedRowBrush" Color="#33235F" />
+            <SolidColorBrush x:Key="RitmHoverBrush" Color="#241A44" />
+            <SolidColorBrush x:Key="RitmFooterBrush" Color="#100A1E" />
+            <SolidColorBrush x:Key="RitmGlowBrush" Color="#6636D8" />
+            <SolidColorBrush x:Key="RitmTextOnAccentBrush" Color="#FFFFFF" />
+            <LinearGradientBrush x:Key="RitmToolbarBrush" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0" Color="#1F1440" />
+                <GradientStop Offset="1" Color="#100A1E" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="RitmAccentGradientBrush" StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Offset="0" Color="#8B5CF6" />
+                <GradientStop Offset="1" Color="#22D3EE" />
+            </LinearGradientBrush>
+
+            <system:Double x:Key="MenuItemHeight">32</system:Double>
+            <system:Double x:Key="StdFontSize">12</system:Double>
+            <system:Double x:Key="StdFontSize1">13</system:Double>
+            <system:Double x:Key="StdFontSize-1">11</system:Double>
+
+            <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <Thickness
+                x:Key="Margin4"
+                Bottom="4"
+                Left="4"
+                Right="4"
+                Top="4" />
+            <Thickness
+                x:Key="Margin8"
+                Bottom="8"
+                Left="8"
+                Right="8"
+                Top="8" />
+            <Thickness
+                x:Key="OutlinedTextBoxDefaultPadding"
+                Bottom="8"
+                Left="8"
+                Right="8"
+                Top="8" />
+            <Thickness
+                x:Key="MarginLeftRight4"
+                Bottom="0"
+                Left="4"
+                Right="4"
+                Top="0" />
+            <Thickness
+                x:Key="MarginLeftRight8"
+                Bottom="0"
+                Left="8"
+                Right="8"
+                Top="0" />
+            <Thickness
+                x:Key="MarginLeft8"
+                Bottom="0"
+                Left="8"
+                Right="0"
+                Top="0" />
+            <Thickness
+                x:Key="MarginRight8"
+                Bottom="0"
+                Left="0"
+                Right="8"
+                Top="0" />
+
+            <!--  ================================ Text ================================  -->
+            <Style
+                x:Key="ModuleTitle"
+                BasedOn="{StaticResource MaterialDesignTextBlock}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize1}" />
+            </Style>
+            <Style
+                x:Key="ToolbarTextBlock"
+                BasedOn="{StaticResource MaterialDesignTextBlock}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+            </Style>
+            <Style
+                x:Key="StatusbarItem"
+                BasedOn="{StaticResource MaterialDesignTextBlock}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <Style TargetType="{x:Type TextElement}">
+                <Setter Property="FontWeight" Value="Regular" />
+            </Style>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontWeight" Value="Regular" />
+            </Style>
+
+            <!--  RITM V word-mark + footer typography  -->
+            <Style x:Key="RitmBrandTitle" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmTextBrush}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="RitmBrandAccent" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmAccent2Brush}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="RitmFooterText" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmTextDimBrush}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="RitmFooterAccent" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmAccentBrush}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="RitmFooterLink" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmTextDimBrush}" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <!--  =============================== Buttons ===============================  -->
+            <Style x:Key="RitmIconButton" TargetType="{x:Type Button}">
+                <Setter Property="Width" Value="28" />
+                <Setter Property="Height" Value="28" />
+                <Setter Property="Margin" Value="3,0" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmTextDimBrush}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border
+                                x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="14"
+                                RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <ScaleTransform x:Name="Sc" ScaleX="1" ScaleY="1" />
+                                </Border.RenderTransform>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bd" Property="Background" Value="{DynamicResource RitmAccentSoftBrush}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource RitmAccent2Brush}" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="Bd" Property="Background" Value="{DynamicResource RitmAccentBrush}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource RitmTextOnAccentBrush}" />
+                                </Trigger>
+                                <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Sc"
+                                                Storyboard.TargetProperty="ScaleX"
+                                                To="0.88"
+                                                Duration="0:0:0.08" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Sc"
+                                                Storyboard.TargetProperty="ScaleY"
+                                                To="0.88"
+                                                Duration="0:0:0.08" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Sc"
+                                                Storyboard.TargetProperty="ScaleX"
+                                                To="1"
+                                                Duration="0:0:0.14">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase Amplitude="0.4" EasingMode="EaseOut" />
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Sc"
+                                                Storyboard.TargetProperty="ScaleY"
+                                                To="1"
+                                                Duration="0:0:0.14">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase Amplitude="0.4" EasingMode="EaseOut" />
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="lvItemSelected" TargetType="{x:Type ListViewItem}">
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <materialDesign:Card Name="_Card" SnapsToDevicePixels="true">
+                                <ContentPresenter />
+                            </materialDesign:Card>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter TargetName="_Card" Property="Background" Value="{DynamicResource RitmAccentSoftBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="GridViewColumnHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Height" Value="30" />
+            </Style>
+            <Style
+                x:Key="ListItemCheckBox"
+                BasedOn="{StaticResource MaterialDesignUserForegroundCheckBox}"
+                TargetType="{x:Type CheckBox}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+            </Style>
+
+            <Style
+                x:Key="DefButton"
+                BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                TargetType="{x:Type ButtonBase}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="0.86"
+                                    Duration="0:0:0.16" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="1"
+                                    Duration="0:0:0.16" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style
+                x:Key="DefContextMenu"
+                BasedOn="{StaticResource MaterialDesignContextMenu}"
+                TargetType="{x:Type ContextMenu}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Setter Property="FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
+            </Style>
+
+            <Style
+                x:Key="ToolbarMenu"
+                BasedOn="{StaticResource MaterialDesignMenu}"
+                TargetType="{x:Type Menu}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Setter Property="FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmTextBrush}" />
+            </Style>
+
+            <Style
+                x:Key="DefComboBox"
+                BasedOn="{StaticResource MaterialDesignComboBox}"
+                TargetType="{x:Type ComboBox}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+            </Style>
+
+            <!--  =============================== DataGrid ===============================  -->
+            <Style
+                x:Key="RitmColumnHeader"
+                BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
+                TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Background" Value="{DynamicResource RitmSurfaceAltBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmTextBrush}" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="BorderBrush" Value="{DynamicResource RitmBorderBrush}" />
+                <Setter Property="BorderThickness" Value="0,0,1,1" />
+                <Setter Property="Height" Value="32" />
+            </Style>
+            <Style
+                x:Key="RitmDataGridCell"
+                BasedOn="{StaticResource MaterialDesignDataGridCell}"
+                TargetType="{x:Type DataGridCell}">
+                <Setter Property="BorderBrush" Value="{DynamicResource RitmBorderBrush}" />
+                <Setter Property="BorderThickness" Value="0,0,1,1" />
+                <Setter Property="Padding" Value="4,2" />
+            </Style>
+            <Style
+                x:Key="RitmDataGridRow"
+                BasedOn="{StaticResource MaterialDesignDataGridRow}"
+                TargetType="{x:Type DataGridRow}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmTextBrush}" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource RitmHoverBrush}" />
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource RitmSelectedRowBrush}" />
+                        <Setter Property="Foreground" Value="{DynamicResource RitmTextBrush}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style
+                x:Key="DefDataGrid"
+                BasedOn="{StaticResource MaterialDesignDataGrid}"
+                TargetType="{x:Type DataGrid}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Setter Property="Background" Value="{DynamicResource RitmSurfaceBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource RitmTextBrush}" />
+                <Setter Property="RowBackground" Value="{DynamicResource RitmSurfaceBrush}" />
+                <Setter Property="AlternatingRowBackground" Value="{DynamicResource RitmSurfaceAltBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource RitmBorderBrush}" />
+                <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource RitmBorderBrush}" />
+                <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource RitmBorderBrush}" />
+                <Setter Property="ColumnHeaderStyle" Value="{StaticResource RitmColumnHeader}" />
+                <Setter Property="CellStyle" Value="{StaticResource RitmDataGridCell}" />
+                <Setter Property="RowStyle" Value="{StaticResource RitmDataGridRow}" />
+            </Style>
+
+            <Style
+                x:Key="DefTextBox"
+                BasedOn="{StaticResource MaterialDesignTextBox}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+            </Style>
+            <Style
+                x:Key="MyOutlinedTextBox"
+                BasedOn="{StaticResource MaterialDesignOutlinedTextBox}"
+                TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Setter Property="Padding" Value="{StaticResource OutlinedTextBoxDefaultPadding}" />
+            </Style>
+            <Style
+                x:Key="MyGroupBox"
+                BasedOn="{StaticResource MaterialDesignGroupBox}"
+                TargetType="{x:Type GroupBox}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+            </Style>
+            <Style
+                x:Key="MyChipListBoxItem"
+                BasedOn="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBoxItem}"
+                TargetType="{x:Type ListBoxItem}">
+                <Setter Property="Margin" Value="-2,0" />
+            </Style>
+            <Style
+                x:Key="MyOutlinedTextComboBox"
+                BasedOn="{StaticResource MaterialDesignOutlinedComboBox}"
+                TargetType="{x:Type ComboBox}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+                <Setter Property="Padding" Value="{StaticResource OutlinedTextBoxDefaultPadding}" />
+            </Style>
+            <Style x:Key="ListItemChip" TargetType="{x:Type materialDesign:Chip}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+            </Style>
+            <Style
+                x:Key="ListItemTitle"
+                BasedOn="{StaticResource MaterialDesignTextBlock}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+            </Style>
+            <Style
+                x:Key="ListItemSubTitle"
+                BasedOn="{StaticResource MaterialDesignTextBlock}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize}" />
+            </Style>
+            <Style
+                x:Key="ListItemSubTitle2"
+                BasedOn="{StaticResource MaterialDesignTextBlock}"
+                TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="{DynamicResource StdFontSize-1}" />
+            </Style>
+
+            <!--  ============================ Window / View shell ============================  -->
+            <Style
+                x:Key="WindowGlobal"
+                BasedOn="{StaticResource {x:Type Window}}"
+                TargetType="{x:Type Window}">
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+                <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
+                <Setter Property="TextOptions.TextHintingMode" Value="Fixed" />
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource RitmTextBrush}" />
+                <Setter Property="Background" Value="{DynamicResource RitmWindowBrush}" />
+                <Setter Property="TextElement.FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
+                <Setter Property="FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
+                <Setter Property="ResizeMode" Value="CanResize" />
+                <Style.Triggers>
+                    <!--  RITM V : soft fade-in for every window  -->
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0"
+                                    To="1"
+                                    Duration="0:0:0.28">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseOut" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style
+                x:Key="ViewGlobal"
+                BasedOn="{StaticResource {x:Type UserControl}}"
+                TargetType="{x:Type UserControl}">
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+                <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
+                <Setter Property="TextOptions.TextHintingMode" Value="Fixed" />
+                <Setter Property="TextElement.Foreground" Value="{DynamicResource RitmTextBrush}" />
+                <Setter Property="Background" Value="{DynamicResource RitmSurfaceBrush}" />
+                <Setter Property="TextElement.FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
+                <Setter Property="FontFamily" Value="{x:Static conv:MaterialDesignFonts.MyFont}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
